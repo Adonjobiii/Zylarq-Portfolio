@@ -1,0 +1,539 @@
+:root {
+    --primary-light: #008cff;
+    --primary-dark: #8711c1;
+    --accent: #2118cd;
+    --bg-color: #010308;
+    --text-primary: #ffffff;
+    --text-secondary: #a0aec0;
+    --hud-color: rgba(0, 140, 255, 0.7);
+    --gradient: linear-gradient(135deg, var(--primary-light), var(--accent), var(--primary-dark));
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    margin: 0;
+    padding: 0;
+}
+
+/* ThreeJS Canvas */
+#canvas-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Spaceship HUD */
+#spaceship-hud {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    font-family: 'Space Mono', monospace;
+    color: var(--hud-color);
+}
+
+.crosshair {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    opacity: 0.5;
+}
+
+.crosshair .hline {
+    position: absolute;
+    top: 50%; left: 0;
+    width: 100%; height: 1px;
+    background: var(--hud-color);
+}
+
+.crosshair .vline {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 1px; height: 100%;
+    background: var(--hud-color);
+}
+
+.hud-top-left {
+    position: absolute;
+    top: 2rem; left: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.hud-top-right {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.hud-bottom {
+    position: absolute;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    opacity: 0.7;
+    animation: pulseText 2s infinite alternate;
+}
+
+@keyframes pulseText {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
+}
+
+/* 3D Universe Container */
+#universe-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    perspective: 1000px;
+    z-index: 10;
+    pointer-events: none; /* Let clicks pass to nodes if needed */
+}
+
+#camera-rig {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.1s linear; /* Smooth scroll mapping */
+}
+
+/* Planet Nodes */
+.planet-node {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 800px;
+    height: 600px;
+    margin-left: -400px; /* Center */
+    margin-top: -300px;  /* Center */
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* Allow interactions */
+}
+
+.node-content {
+    width: 100%;
+    padding: 3rem;
+    position: relative;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Flex layout exclusively for planets with shuttles */
+.node-content.planet-glass {
+    width: max-content;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.center-align { text-align: center; }
+.left-align { text-align: left; transform: translateX(-200px); }
+.right-align { text-align: left; transform: translateX(200px); }
+
+/* Typography inside Nodes */
+.mega-text {
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+}
+
+.mega-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subheadline {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.mission-statement {
+    font-size: 1.5rem;
+    color: var(--primary-light);
+    margin-bottom: 2rem;
+}
+
+.planet-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--hud-color);
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: inline-block;
+    border: 1px solid var(--hud-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.bold-statement {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(to right, #ffffff, #a0aec0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Energy Nodes in The Origin */
+.energy-node {
+    padding: 1.5rem;
+    background: rgba(10, 19, 41, 0.4);
+    border: 1px solid rgba(0, 140, 255, 0.2);
+    border-radius: 15px;
+    width: calc(33% - 1rem);
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 140, 255, 0);
+}
+
+.energy-node:hover {
+    background: rgba(0, 140, 255, 0.1);
+    border-color: var(--primary-light);
+    transform: scale(1.05);
+    box-shadow: inset 0 0 20px rgba(0, 140, 255, 0.2), 0 0 15px rgba(0, 140, 255, 0.4);
+}
+
+/* DNA Nodes */
+.dna-node {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
+
+.explosion-text {
+    font-size: 8rem;
+    filter: drop-shadow(0 0 50px rgba(0, 140, 255, 0.8));
+    animation: pulseCore 2s infinite alternate;
+}
+
+@keyframes pulseCore {
+    0% { filter: drop-shadow(0 0 30px rgba(0, 140, 255, 0.5)); transform: scale(1); }
+    100% { filter: drop-shadow(0 0 80px rgba(135, 17, 193, 1)); transform: scale(1.05); }
+}
+
+#flash-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: white;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.flash-active {
+    opacity: 1 !important;
+    transition: opacity 0.1s ease-out !important;
+}
+
+/* Holographic DNA Text (Cleaned up for readability) */
+.holographic-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--primary-light);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+.holographic-desc {
+    font-size: 1.5rem;
+    color: #e2e8f0;
+    font-family: 'Space Mono', monospace;
+}
+
+/* Removed pulse-text and glow-text to ensure clean typography */
+.glow-text {
+    /* Kept class but removed aggressive text-shadow */
+    color: white;
+}
+
+.pulse-text {
+    /* Removed animation to prevent white washing */
+}
+
+.system-alert {
+    border: 2px solid #ff2a2a;
+    background: rgba(255, 42, 42, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(255, 42, 42, 0.3), 0 0 30px rgba(255, 42, 42, 0.5);
+}
+
+.alert-text {
+    color: #ff2a2a;
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #ff2a2a;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+    color: #ff2a2a;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.node-content h2 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+/* Glass Panels for Planets */
+.planet-glass {
+    background: rgba(10, 19, 41, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 30px;
+    /* Removed bright inner shadow to keep it dark and premium */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+
+/* Feature Tags */
+.feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.feature-tags span {
+    padding: 0.5rem 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    font-size: 0.9rem;
+}
+
+/* Constellation Grid */
+.constellation-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.star-project {
+    padding: 2rem;
+    background: radial-gradient(circle at center, rgba(135, 17, 193, 0.1) 0%, transparent 70%);
+    border: 1px solid rgba(135, 17, 193, 0.3);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.star-project:hover {
+    background: radial-gradient(circle at center, rgba(0, 140, 255, 0.2) 0%, transparent 70%);
+    border-color: var(--primary-light);
+    transform: scale(1.05);
+    /* Softened shadow */
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.2);
+}
+
+/* Buttons */
+.portal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.btn-primary {
+    background: var(--gradient);
+    color: white;
+    padding: 1.2rem 3rem;
+    border-radius: 40px;
+    font-weight: 600;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(135, 17, 193, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    padding: 1.2rem 3rem;
+    border-radius: 40px;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-light);
+    background: rgba(255,255,255,0.05);
+}
+
+/* Invisible Scroll Catcher */
+#scroll-catcher {
+    height: 30000px; /* Big scroll area to trigger scroll events without visual scrollbars */
+    width: 1px;
+}
+
+/* Interactive Shuttle & Tech Stack */
+.shuttle-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+}
+
+/* Removed the row-reverse override so it's ALWAYS on the right */
+.right-align .shuttle-container {
+    /* No overrides needed, flex naturally places it on the right */
+}
+
+.shuttle-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #008cff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: float-shuttle 3s ease-in-out infinite;
+    pointer-events: auto; /* Ensure it is clickable */
+}
+
+.shuttle-icon:hover {
+    background: rgba(0, 140, 255, 0.2);
+    border-color: #008cff;
+    box-shadow: 0 0 20px rgba(0, 140, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.shuttle-icon.hidden {
+    transform: scale(0) !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes float-shuttle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.tech-stack-panel {
+    position: absolute;
+    left: 80px; /* Appear to the right of the shuttle */
+    background: rgba(5, 10, 20, 0.85);
+    border: 1px solid rgba(135, 17, 193, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Removed old right-align override */
+
+.tech-stack-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.15) translateX(0) !important; /* Enlarged as requested */
+    pointer-events: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+.tech-stack-panel h3 {
+    font-size: 1.2rem;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.tech-stack-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tech-stack-panel li {
+    font-size: 1.1rem; /* Slightly larger text */
+    color: #cbd5e1;
+    margin-bottom: 0.8rem; /* More spacing */
+    display: flex;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+}
+
+.tech-stack-panel li img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+}
