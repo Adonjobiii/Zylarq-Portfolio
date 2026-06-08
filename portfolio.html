@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYLARQ | The Digital Genome</title>
+    <meta name="description" content="Explore the Zylarq Digital Universe.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Three.js for the cosmic background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- ThreeJS Canvas Background -->
+    <div id="canvas-container"></div>
+
+    <!-- HUD / Spaceship Interface -->
+    <div id="spaceship-hud">
+        <div class="hud-top-left">ZYLARQ SPACECRAFT v1.0</div>
+        <div class="hud-top-right" id="z-distance">DEPTH: 00000 Z</div>
+        <div class="hud-bottom">Scroll to engage thrusters</div>
+    </div>
+
+    <!-- 3D HTML Environment -->
+    <div id="universe-container">
+        <div id="camera-rig">
+            
+            <!-- Origin (Z = 0) -->
+            <div class="planet-node" data-z="0">
+                <div class="node-content center-align">
+                    <h1 class="mega-text mega-gradient">ZYLARQ</h1>
+                    <h2 class="subheadline">Where Ideas Evolve Into Digital Products.</h2>
+                    <p class="mission-statement">We transform ambitious ideas into websites, software, AI systems, and digital experiences.</p>
+                </div>
+            </div>
+
+            <!-- DNA Nodes (Holographic Text) -->
+            <div class="planet-node" data-z="-2000">
+                <div class="node-content right-align dna-node">
+                    <h2 class="holographic-title">Innovation.</h2>
+                    <p class="holographic-desc">The spark that starts everything.</p>
+                </div>
+            </div>
+            
+            <div class="planet-node" data-z="-3000">
+                <div class="node-content left-align dna-node">
+                    <h2 class="holographic-title">Creativity.</h2>
+                    <p class="holographic-desc">Turning imagination into experiences.</p>
+                </div>
+            </div>
+
+            <div class="planet-node" data-z="-4000">
+                <div class="node-content right-align dna-node">
+                    <h2 class="holographic-title">Precision.</h2>
+                    <p class="holographic-desc">Engineering every detail with purpose.</p>
+                </div>
+            </div>
+
+            <div class="planet-node" data-z="-5000">
+                <div class="node-content left-align dna-node">
+                    <h2 class="holographic-title">Collaboration.</h2>
+                    <p class="holographic-desc">Building together toward a shared vision.</p>
+                </div>
+            </div>
+
+            <div class="planet-node" data-z="-6000">
+                <div class="node-content right-align dna-node">
+                    <h2 class="holographic-title">Growth.</h2>
+                    <p class="holographic-desc">Creating solutions that evolve.</p>
+                </div>
+            </div>
+
+            <div class="planet-node" data-z="-7000">
+                <div class="node-content left-align dna-node">
+                    <h2 class="holographic-title">Excellence.</h2>
+                    <p class="holographic-desc">Pursuing extraordinary outcomes.</p>
+                </div>
+            </div>
+
+            <!-- Post-Explosion Narrative: THE CONVERGENCE -->
+            <div class="planet-node narrative-node" data-z="-8500">
+                <div class="node-content center-align">
+                    <div class="planet-label">THE CONVERGENCE</div>
+                    <h2 class="mega-text glow-text">Every idea begins as possibility.</h2>
+                </div>
+            </div>
+
+            <div class="planet-node narrative-node" data-z="-9500">
+                <div class="node-content center-align">
+                    <h2 class="mega-text glow-text">Every possibility becomes innovation.</h2>
+                </div>
+            </div>
+
+            <div class="planet-node narrative-node" data-z="-10500">
+                <div class="node-content center-align">
+                    <h2 class="mega-text glow-text">Every innovation becomes impact.</h2>
+                </div>
+            </div>
+
+            <div class="planet-node narrative-node" data-z="-11500">
+                <div class="node-content center-align">
+                    <p class="holographic-desc">At Zylarq, we transform imagination into digital reality.</p>
+                </div>
+            </div>
+
+            <!-- The Singularity -->
+            <div class="planet-node narrative-node" data-z="-13000">
+                <div class="node-content center-align singularity-core">
+                    <h1 class="mega-text mega-gradient pulse-text" style="font-size: 6rem;">ZYLARQ</h1>
+                    <h2 class="holographic-title">THE DIGITAL SINGULARITY</h2>
+                    <p class="mission-statement" style="font-size: 1.5rem; margin-top: 2rem;">Where technology, creativity, intelligence, and ambition become one.</p>
+                </div>
+            </div>
+
+            <!-- Planet 01 (Z = -16000) -->
+            <div class="planet-node" data-z="-16000">
+                <div class="node-content left-align planet-glass">
+                    <div class="planet-text">
+                        <div class="planet-label">PLANET 01</div>
+                        <h2>WEB DEVELOPMENT</h2>
+                        <p class="mission-statement">We build digital foundations.</p>
+                        <p class="bold-statement">Fast. Scalable. Future-ready.</p>
+                        <p class="bold-statement">Web experiences engineered for growth.</p>
+                    </div>
+                    
+                    <div class="shuttle-container">
+                        <div class="shuttle-icon" onclick="openTechStack(this)">
+                            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2.5s-2 2-2 6c0 4 2.5 5.5 2.5 5.5l-3 3-5-1.5-1.5 1.5 4 4 1.5-1.5-1.5-5 3-3s1.5 2.5 5.5 2.5c4 0 6-2 6-2l-1.5-1.5 2-2-1.5-1.5-2 2-1.5-1.5z"></path></svg>
+                        </div>
+                        <div class="tech-stack-panel">
+                            <div class="close-btn" onclick="closeTechStack(this)">×</div>
+                            <h3>Tech Stack</h3>
+                            <ul>
+                                <li><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React"> React / Next.js</li>
+                                <li><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js"> Node.js</li>
+                                <li><img src="https://cdn.simpleicons.org/threedotjs/white" alt="Three.js"> Three.js / WebGL</li>
+                                <li><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript"> TypeScript</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planet 02 (Z = -19000) -->
+            <div class="planet-node" data-z="-19000">
+                <div class="node-content right-align planet-glass">
+                    <div class="planet-text">
+                        <div class="planet-label">PLANET 02</div>
+                        <h2>AI & AUTOMATION</h2>
+                        <p class="mission-statement">We create intelligence.</p>
+                        <p class="bold-statement">Automation meets innovation.</p>
+                        <p class="bold-statement">Turning complexity into intelligent systems.</p>
+                    </div>
+                    
+                    <div class="shuttle-container">
+                        <div class="shuttle-icon" onclick="openTechStack(this)">
+                            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2.5s-2 2-2 6c0 4 2.5 5.5 2.5 5.5l-3 3-5-1.5-1.5 1.5 4 4 1.5-1.5-1.5-5 3-3s1.5 2.5 5.5 2.5c4 0 6-2 6-2l-1.5-1.5 2-2-1.5-1.5-2 2-1.5-1.5z"></path></svg>
+                        </div>
+                        <div class="tech-stack-panel">
+                            <div class="close-btn" onclick="closeTechStack(this)">×</div>
+                            <h3>Tech Stack</h3>
+                            <ul>
+                                <li><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python"> Python / PyTorch</li>
+                                <li><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="TensorFlow"> TensorFlow</li>
+                                <li><img src="https://cdn.simpleicons.org/openai/white" alt="OpenAI"> OpenAI / LLMs</li>
+                                <li><img src="https://cdn.simpleicons.org/langchain/white" alt="LangChain"> LangChain</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planet 03 (Z = -22000) -->
+            <div class="planet-node" data-z="-22000">
+                <div class="node-content left-align planet-glass">
+                    <div class="planet-text">
+                        <div class="planet-label">PLANET 03</div>
+                        <h2>DESIGN DIMENSION</h2>
+                        <p class="mission-statement">We design experiences.</p>
+                        <p class="bold-statement">Every interaction tells a story.</p>
+                        <p class="bold-statement">Beauty meets functionality.</p>
+                    </div>
+                    
+                    <div class="shuttle-container">
+                        <div class="shuttle-icon" onclick="openTechStack(this)">
+                            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2.5s-2 2-2 6c0 4 2.5 5.5 2.5 5.5l-3 3-5-1.5-1.5 1.5 4 4 1.5-1.5-1.5-5 3-3s1.5 2.5 5.5 2.5c4 0 6-2 6-2l-1.5-1.5 2-2-1.5-1.5-2 2-1.5-1.5z"></path></svg>
+                        </div>
+                        <div class="tech-stack-panel">
+                            <div class="close-btn" onclick="closeTechStack(this)">×</div>
+                            <h3>Tech Stack</h3>
+                            <ul>
+                                <li><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"> Figma</li>
+                                <li><img src="https://cdn.simpleicons.org/blender/F5792A" alt="Blender"> Spline / Blender</li>
+                                <li><img src="https://cdn.simpleicons.org/adobecreativecloud/DA1F26" alt="Adobe CC"> Adobe CC</li>
+                                <li><img src="https://cdn.simpleicons.org/framer/0055FF" alt="Framer"> Framer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planet 04 (Z = -25000) -->
+            <div class="planet-node" data-z="-25000">
+                <div class="node-content right-align planet-glass">
+                    <div class="planet-text">
+                        <div class="planet-label">PLANET 04</div>
+                        <h2>CLOUD NEXUS</h2>
+                        <p class="mission-statement">We build for scale.</p>
+                        <p class="bold-statement">Reliable. Secure. Limitless.</p>
+                        <p class="bold-statement">Technology without boundaries.</p>
+                    </div>
+                    
+                    <div class="shuttle-container">
+                        <div class="shuttle-icon" onclick="openTechStack(this)">
+                            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2.5s-2 2-2 6c0 4 2.5 5.5 2.5 5.5l-3 3-5-1.5-1.5 1.5 4 4 1.5-1.5-1.5-5 3-3s1.5 2.5 5.5 2.5c4 0 6-2 6-2l-1.5-1.5 2-2-1.5-1.5-2 2-1.5-1.5z"></path></svg>
+                        </div>
+                        <div class="tech-stack-panel">
+                            <div class="close-btn" onclick="closeTechStack(this)">×</div>
+                            <h3>Tech Stack</h3>
+                            <ul>
+                                <li><img src="https://cdn.simpleicons.org/amazonaws/232F3E" alt="AWS"> AWS / GCP</li>
+                                <li><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"> Docker / Kubernetes</li>
+                                <li><img src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform"> Terraform</li>
+                                <li><img src="https://cdn.simpleicons.org/githubactions/2088FF" alt="CI/CD"> CI/CD Pipelines</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Constellation (Z = -28000) -->
+            <div class="planet-node" data-z="-28000">
+                <div class="node-content center-align">
+                    <div class="planet-label">THE CONSTELLATION</div>
+                    <h2>SELECTED WORK</h2>
+                    <div class="constellation-grid">
+                        <div class="star-project">CITYLERT</div>
+                        <div class="star-project">PATHWISE</div>
+                        <div class="star-project">TRACKMYMNY</div>
+                        <div class="star-project">WANDERLUST</div>
+                        <div class="star-project">PATIENT FEEDBACK SYSTEM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Origin Core (Z = -31000) -->
+            <div class="planet-node" data-z="-31000">
+                <div class="node-content center-align">
+                    <div class="planet-label">THE ORIGIN CORE</div>
+                    <h2>ZYLARQ IDENTITY</h2>
+                    <p class="mission-statement">Technology | Creativity | Innovation | Strategy</p>
+                </div>
+            </div>
+
+            <!-- Final Destination (Z = -34000) -->
+            <div class="planet-node" data-z="-34000">
+                <div class="node-content center-align final-portal">
+                    <h2>Ready To Build Your Universe?</h2>
+                    <p class="mission-statement">Every extraordinary product begins as an idea. Let's create yours.</p>
+                    <div class="portal-actions">
+                        <button class="btn-primary">Start a Project</button>
+                        <button class="btn-secondary">Contact Zylarq</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scroll Catcher -->
+    <div id="scroll-catcher"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

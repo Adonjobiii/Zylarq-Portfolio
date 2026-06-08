@@ -1,0 +1,49 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #050508; /* Deep cosmic void */
+    font-family: 'Outfit', sans-serif;
+    transition: opacity 1.5s ease-in-out;
+}
+
+body.fade-out {
+    opacity: 0;
+}
+
+#canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#tagline {
+    position: absolute;
+    bottom: 15%;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    color: #ffffff;
+    letter-spacing: 0.5rem;
+    opacity: 0; /* Hidden initially, GSAP will fade it in */
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(100, 150, 255, 0.8);
+}
