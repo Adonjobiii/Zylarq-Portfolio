@@ -6,11 +6,24 @@ body, html {
     overflow: hidden;
     background-color: #050508; /* Deep cosmic void */
     font-family: 'Outfit', sans-serif;
-    transition: opacity 1.5s ease-in-out;
 }
 
-body.fade-out {
+#fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #050508;
+    z-index: 9999;
     opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease-in-out;
+}
+
+#fade-overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
 #canvas-container {

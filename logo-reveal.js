@@ -352,11 +352,13 @@ function startCinematicSequence() {
 
         // Fade out and Redirect to portfolio
         setTimeout(() => {
-            document.body.classList.add('fade-out');
+            const overlay = document.getElementById('fade-overlay');
+            if (overlay) overlay.classList.add('active');
+            
             setTimeout(() => {
                 window.location.href = "portfolio.html";
-            }, 1500); // Wait for fade out to complete
-        }, 5000); // Wait 5 seconds after tagline is revealed
+            }, 2000); // Wait 2s for the overlay to fully fade in
+        }, 3000); // Wait 3 seconds after the tagline reveals before transitioning
 
     }, 13500);
 }

@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="style.css">
     <!-- Three.js for the cosmic background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Force Splash Screen on Reload -->
+    <script>
+        // Check if the page is being reloaded (Ctrl+F5 or F5)
+        const navEntries = window.performance.getEntriesByType("navigation");
+        if (navEntries.length > 0 && navEntries[0].type === "reload") {
+            // If the user reloads the portfolio page, redirect them back to the transition!
+            window.location.replace("index.html");
+        }
+    </script>
 </head>
 <body>
     <!-- ThreeJS Canvas Background -->
@@ -28,9 +38,9 @@
         <div id="camera-rig">
             
             <!-- Origin (Z = 0) -->
-            <div class="planet-node" data-z="0">
+            <div class="planet-node float-node" data-z="0">
                 <div class="node-content center-align">
-                    <h1 class="mega-text mega-gradient">ZYLARQ</h1>
+                    <h1 class="mega-text liquid-glass-text">ZYLARQ</h1>
                     <h2 class="subheadline">Where Ideas Evolve Into Digital Products.</h2>
                     <p class="mission-statement">We transform ambitious ideas into websites, software, AI systems, and digital experiences.</p>
                 </div>
