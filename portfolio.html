@@ -20,6 +20,9 @@
         if (navEntries.length > 0 && navEntries[0].type === "reload") {
             // If the user reloads the portfolio page, redirect them back to the transition!
             window.location.replace("index.html");
+        } else {
+            // Rewrite the URL bar to hide portfolio.html
+            history.replaceState({}, '', '/');
         }
     </script>
 </head>

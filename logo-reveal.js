@@ -395,7 +395,7 @@ function startCinematicSequence() {
             
             setTimeout(() => {
                 introAudio.pause();
-                window.location.href = "portfolio.html";
+                window.location.replace("portfolio.html");
             }, 2000); // Wait 2s for the overlay to fully fade in
         }, 3000); // Wait 3 seconds after the tagline reveals before transitioning
 
