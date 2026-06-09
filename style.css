@@ -87,6 +87,8 @@ body, html {
     letter-spacing: 4px;
     opacity: 0.7;
     animation: pulseText 2s infinite alternate;
+    white-space: nowrap;
+    text-align: center;
 }
 
 @keyframes pulseText {
@@ -766,11 +768,259 @@ body, html {
     align-items: center;
     overflow: hidden;
     position: relative;
-    background: rgba(0,0,0,0.2);
+    background: transparent;
 }
 .horizontal-card-media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
+/* =========================================
+   RESPONSIVE DESIGN (All View Compatible) 
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+    /* Scale Planet Sizes & Positions */
+    .planet-node { width: 90vw; margin-left: -45vw; }
+    
+    /* Typography Scaling */
+    .mega-text { font-size: 4.5rem; }
+    .node-content h2 { font-size: 3rem; }
+    .bold-statement { font-size: 1.8rem; }
+    .subheadline { font-size: 1.5rem; }
+    .mission-statement { font-size: 1rem; }
+    
+    /* Layout Overrides */
+    .node-content.planet-glass {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+        padding: 2rem;
+        max-width: 90vw;
+    }
+    
+    /* Center align everything */
+    .left-align, .right-align { transform: translateX(0); text-align: center; }
+    
+    /* Fix Tech Stack Panels */
+    .shuttle-container { justify-content: center; width: 100%; margin-top: 1rem; }
+    .tech-stack-panel {
+        left: 50%;
+        top: 70px;
+        transform: translateX(-50%) translateY(-20px);
+        min-width: 250px;
+        text-align: left;
+    }
+    .tech-stack-panel.active {
+        transform: scale(1.05) translateX(-48%) translateY(0) !important;
+    }
+    
+    /* Grid Collapsing */
+    .constellation-grid { gap: 1rem; justify-content: center; }
+    .star-project { width: 150px; height: 150px; font-size: 0.9rem; }
+    
+    /* Modals */
+    .modal-container { width: 95%; padding: 2rem; max-width: 95vw; }
+}
+
+@media screen and (max-width: 768px) {
+    /* Mobile Typography */
+    .mega-text { font-size: 3.2rem; }
+    .node-content h2 { font-size: 2.2rem; }
+    .bold-statement { font-size: 1.4rem; }
+    .holographic-title { font-size: 2.5rem; }
+    .alert-text { font-size: 1.5rem; }
+    
+    /* Modal Grid Stacking */
+    .projects-grid { grid-template-columns: 1fr; gap: 1rem; max-height: 70vh; }
+    
+    /* Horizontal Cards Stacking */
+    .horizontal-card { flex-direction: column; min-height: auto; }
+    .horizontal-card-media { height: 180px; }
+    .horizontal-card-info { padding: 1.2rem; }
+    .horizontal-card-info h3 { font-size: 1.3rem; }
+    .horizontal-card-info p { font-size: 0.85rem; }
+    
+    /* Actions */
+    .portal-actions { flex-direction: column; gap: 1rem; width: 100%; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    
+    /* Stars */
+    .star-project { width: 120px; height: 120px; font-size: 0.8rem; }
+}
+/* =========================================
+   CONTACT & FORM MODALS
+   ========================================= */
+
+/* Contact Modal Details */
+.contact-card-container {
+    max-width: 500px;
+    text-align: center;
+    background: rgba(5, 10, 20, 0.95);
+    border: 1px solid rgba(0, 140, 255, 0.3);
+    padding: 4rem 2rem;
+}
+
+.contact-card-container h2 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+}
+
+.contact-item a {
+    color: #00bfff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 140, 255, 0.8);
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+}
+
+/* Start Project Form Modal */
+.form-container {
+    max-width: 550px;
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #a0aec0;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group textarea {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: #008cff;
+    box-shadow: 0 0 0 2px rgba(0, 140, 255, 0.2);
+}
+
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+    color: #4b5563;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-submit-btn {
+    background: #026fb9;
+    color: white;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-submit-btn:hover {
+    background: #008cff;
+    transform: translateY(-2px);
+}
+
+@media screen and (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+/* =========================================
+   ULTRA-COMPACT MOBILE DEVICES (< 480px)
+   ========================================= */
+@media screen and (max-width: 480px) {
+    /* Extreme Typography Scaling */
+    .mega-text { font-size: 2.5rem; letter-spacing: 0; }
+    .node-content h2 { font-size: 1.8rem; }
+    .bold-statement { font-size: 1.2rem; }
+    .holographic-title { font-size: 1.8rem; }
+    .alert-text { font-size: 1.2rem; }
+    .mission-statement { font-size: 0.9rem; }
+    
+    /* Layout Padding Reductions */
+    .node-content.planet-glass { padding: 1rem; gap: 15px; }
+    .modal-container { padding: 1rem; width: 98%; max-width: 98vw; }
+    .contact-card-container { padding: 2rem 1rem; }
+    
+    /* Contact Details Scaling */
+    .contact-card-container h2 { font-size: 1.5rem; letter-spacing: 1px; }
+    .contact-item { font-size: 0.9rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    
+    /* Tech Stack Constrain */
+    .tech-stack-panel { width: 90vw; min-width: unset; padding: 1rem; }
+    .tech-stack-panel.active { transform: scale(1) translateX(-48%) translateY(0) !important; }
+    
+    /* Button Adjustments */
+    .btn-primary, .btn-secondary { padding: 0.8rem 1rem; font-size: 0.95rem; }
+    
+    /* Form Container Padding */
+    .form-container { padding: 1.5rem; }
+    .form-container h2 { font-size: 1.3rem !important; margin-bottom: 1rem !important; }
+}

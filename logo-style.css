@@ -60,3 +60,18 @@ body, html {
     text-transform: uppercase;
     text-shadow: 0 0 10px rgba(100, 150, 255, 0.8);
 }
+/* RESPONSIVE SCALING */
+@media screen and (max-width: 768px) {
+    #tagline {
+        font-size: 0.9rem;
+        letter-spacing: 0.2rem;
+        bottom: 20%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #tagline {
+        font-size: 0.7rem;
+        letter-spacing: 0.1rem;
+    }
+}

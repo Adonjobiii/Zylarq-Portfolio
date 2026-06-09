@@ -377,3 +377,35 @@ function closePersonalizedModal() {
         document.body.style.overflow = 'auto';
     }
 }
+// Contact & Form Modal Logic
+function openContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function openStartProjectModal() {
+    const modal = document.getElementById('start-project-modal');
+    if(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeStartProjectModal() {
+    const modal = document.getElementById('start-project-modal');
+    if(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}

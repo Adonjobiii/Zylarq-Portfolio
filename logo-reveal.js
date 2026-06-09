@@ -4,7 +4,24 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x050508, 0.002);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 150;
+
+let targetCameraZ = 150;
+let explosionCameraZ = 200;
+
+function updateCameraZ() {
+    if (window.innerWidth < 480) {
+        targetCameraZ = 200;
+        explosionCameraZ = 300;
+    } else if (window.innerWidth < 768) {
+        targetCameraZ = 320;
+        explosionCameraZ = 380;
+    } else {
+        targetCameraZ = 120;
+        explosionCameraZ = 200;
+    }
+    camera.position.z = targetCameraZ;
+}
+updateCameraZ();
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -27,6 +44,7 @@ window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+    updateCameraZ();
     renderer.setSize(window.innerWidth, window.innerHeight);
     composer.setSize(window.innerWidth, window.innerHeight);
 }
@@ -339,7 +357,7 @@ function startCinematicSequence() {
     // 5. The Climax (Explosion)
     setTimeout(() => {
         gsap.to(bloomPass, { strength: 3.0, duration: 1 });
-        gsap.to(camera.position, { z: 200, duration: 2, ease: "power2.inOut" });
+        gsap.to(camera.position, { z: explosionCameraZ, duration: 2, ease: "power2.inOut" });
         
         // Blast all to void
         for(let i=0; i<6; i++) setTargetForGroup(i, TargetStates.Void);
@@ -361,7 +379,7 @@ function startCinematicSequence() {
         for(let i=0; i<TOTAL_PARTICLES; i++) lerpSpeeds[i] = 0.05 + Math.random()*0.05;
         
         gsap.to(bloomPass, { strength: 1.5, duration: 2 });
-        gsap.to(camera.position, { z: 120, duration: 3, ease: "power2.out" });
+        gsap.to(camera.position, { z: targetCameraZ, duration: 3, ease: "power2.out" });
         
         // Reveal Tagline
         gsap.to("#tagline", { opacity: 1, duration: 2, delay: 1 });
