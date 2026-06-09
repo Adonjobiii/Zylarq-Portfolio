@@ -283,6 +283,9 @@ function buildTargets(font) {
 }
 
 // Sequence Controller
+const introAudio = new Audio('music/intro.mp3');
+introAudio.volume = 0.6; // Set to a nice background pace volume
+
 function setTargetForGroup(groupIndex, targetArray) {
     const offset = groupIndex * PARTICLES_PER_LETTER * 3;
     for(let i=0; i<PARTICLES_PER_LETTER*3; i++) {
@@ -292,7 +295,20 @@ function setTargetForGroup(groupIndex, targetArray) {
     }
 }
 
+let audioStarted = false;
+    document.body.addEventListener('click', () => {
+        if (!audioStarted) {
+            introAudio.play().catch(e => {});
+            audioStarted = true;
+            const hint = document.getElementById('audio-hint');
+            if (hint) hint.style.opacity = '0';
+        }
+    });
+
 function startCinematicSequence() {
+    // Attempt to play audio. Note: Browsers may block this without prior user interaction.
+    introAudio.play().catch(e => console.log('Audio autoplay blocked by browser. Click anywhere first if testing locally.'));
+    
     // 1. Z and Q appear in center from the void
     setTimeout(() => {
         setTargetForGroup(0, TargetStates.Z_Center);
@@ -355,7 +371,11 @@ function startCinematicSequence() {
             const overlay = document.getElementById('fade-overlay');
             if (overlay) overlay.classList.add('active');
             
+            // Fade out the music slowly
+            gsap.to(introAudio, { volume: 0, duration: 2 });
+            
             setTimeout(() => {
+                introAudio.pause();
                 window.location.href = "portfolio.html";
             }, 2000); // Wait 2s for the overlay to fully fade in
         }, 3000); // Wait 3 seconds after the tagline reveals before transitioning
@@ -399,3 +419,5 @@ function animate() {
 }
 
 animate();
+
+

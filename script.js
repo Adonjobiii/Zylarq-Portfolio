@@ -329,3 +329,51 @@ document.addEventListener('click', (e) => {
         });
     }
 });
+// Modal Logic
+function openWebsitesModal() {
+    const modal = document.getElementById('project-modal');
+    if(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // prevent scrolling underneath
+    }
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-modal');
+    if(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function openSoftwaresModal() {
+    const modal = document.getElementById('softwares-modal');
+    if(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeSoftwaresModal() {
+    const modal = document.getElementById('softwares-modal');
+    if(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function openPersonalizedModal() {
+    const modal = document.getElementById('personalized-modal');
+    if(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closePersonalizedModal() {
+    const modal = document.getElementById('personalized-modal');
+    if(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
