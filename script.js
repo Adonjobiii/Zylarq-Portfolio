@@ -249,11 +249,13 @@ function updateUniverse() {
         const content = node.querySelector('.node-content');
         
         if (distance < 2000) {
-            const opacity = 1 - (distance / 2000);
+            const opacity = Math.max(0, 1 - (distance / 2000));
             content.style.opacity = opacity;
+            content.style.visibility = opacity > 0.05 ? 'visible' : 'hidden';
             node.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
         } else {
             content.style.opacity = 0;
+            content.style.visibility = 'hidden';
             node.style.pointerEvents = 'none';
         }
     });

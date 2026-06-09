@@ -381,8 +381,9 @@ function startCinematicSequence() {
         gsap.to(bloomPass, { strength: 1.5, duration: 2 });
         gsap.to(camera.position, { z: targetCameraZ, duration: 3, ease: "power2.out" });
         
-        // Reveal Tagline
+        // Reveal Tagline and explicitly hide hint
         gsap.to("#tagline", { opacity: 1, duration: 2, delay: 1 });
+        gsap.to("#audio-hint", { opacity: 0, duration: 1 });
 
         // Fade out and Redirect to portfolio
         setTimeout(() => {
