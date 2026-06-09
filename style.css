@@ -19,7 +19,7 @@ body, html {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
-    overflow-x: hidden; /* Hide horizontal scrolling */
+    
     margin: 0;
     padding: 0;
 }
